@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title%}
+My bio page
+{% endblock %}
+
+{% block content %}
+    <div class="main">
+      {% for bio_inst in my_bio %}
+          <hr>
+          <div class="fields">
+            <p>First name: {{ bio_inst.first_name }}</p>
+            <p>Last name:  {{ bio_inst.last_name }}</p>
+            <p>Birth date: {{ bio_inst.birth_date }}</p>
+            <p>Biography:  {{ bio_inst.biography }}</p>
+            <p>Contacts:   {{ bio_inst.contacts }}</p>
+          </div>
+          <hr>
+      {% endfor %}
+    </div>
+
+{% endblock %}
