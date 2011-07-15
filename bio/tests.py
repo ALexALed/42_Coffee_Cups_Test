@@ -23,7 +23,7 @@ class TestMyBioModel(TestCase):
 
 class HttpRequestTest(TestCase):
     """
-    testing http request http middleware
+    testing http request http middleware   
     """
     def setUp(self):
         self.client = Client()
