@@ -100,6 +100,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.csrf.CsrfResponseMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'Coffee_Cups_Test.middleware.HttpRequestMiddleware',
 )
 
 ROOT_URLCONF = 'Coffee_Cups_Test.urls'

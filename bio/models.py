@@ -1,7 +1,5 @@
 from django.db import models
 
-from django.contrib import admin
-
 class MyBio(models.Model):
     '''
     Main model for my bio
@@ -17,8 +15,14 @@ class MyBio(models.Model):
     biography  = models.TextField(blank=True)
     contacts   = models.TextField()
 
-#register modfels in admin interface
-admin.site.register(MyBio)
+
+class HttpRequestSave(models.Model):
+    '''
+    HTTP request
+    '''
+    http_request = models.CharField(max_length=300)
+    remote_addr  = models.IPAddressField(blank=True)
+
 
 
 

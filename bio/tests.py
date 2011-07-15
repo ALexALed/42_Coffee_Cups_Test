@@ -4,6 +4,8 @@ __author__ = 'alexaled'
 from django.test import TestCase
 from django.test.client import Client
 from django.http import HttpRequest
+from middleware import HttpRequestMiddleware
+from models import HttpRequestSave
 
 
 from models import MyBio
@@ -33,5 +35,5 @@ class HttpRequestTest(TestCase):
         self.mid_req = self.middleware.process_request(self.req)
 
     def test_middlew(self):
-        req = HttpRequestLog.objects.order_by('-id')[0]
+        req = HttpRequestSave.objects.order_by('-id')[0]
         self.assertEquals(req.remote_addr, self.req.META['REMOTE_ADDR'])
