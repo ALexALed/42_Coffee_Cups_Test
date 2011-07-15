@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 __author__ = 'alexaled'
 
 
+=======
+>>>>>>> Ticket_1
 from django.test import TestCase
 from django.test.client import Client
 from django.http import HttpRequest
@@ -22,6 +25,7 @@ class TestMyBioModel(TestCase):
             biography = "My bio",
             contacts = "My contacts",
         )
+<<<<<<< HEAD
 
 class HttpRequestTest(TestCase):
     """
@@ -37,3 +41,6 @@ class HttpRequestTest(TestCase):
     def test_middlew(self):
         req = HttpRequestSave.objects.order_by('-id')[0]
         self.assertEquals(req.remote_addr, self.req.META['REMOTE_ADDR'])
+=======
+        
+>>>>>>> Ticket_1
