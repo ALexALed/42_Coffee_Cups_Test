@@ -1,14 +1,13 @@
-<<<<<<< HEAD
 __author__ = 'alexaled'
 
 
-=======
->>>>>>> Ticket_1
 from django.test import TestCase
 from django.test.client import Client
 from django.http import HttpRequest
 from middleware import HttpRequestMiddleware
 from models import HttpRequestSave
+from django.conf import settings
+from django.core.urlresolvers import reverse
 
 
 from models import MyBio
@@ -25,7 +24,7 @@ class TestMyBioModel(TestCase):
             biography = "My bio",
             contacts = "My contacts",
         )
-<<<<<<< HEAD
+
 
 class HttpRequestTest(TestCase):
     """
@@ -41,6 +40,16 @@ class HttpRequestTest(TestCase):
     def test_middlew(self):
         req = HttpRequestSave.objects.order_by('-id')[0]
         self.assertEquals(req.remote_addr, self.req.META['REMOTE_ADDR'])
-=======
-        
->>>>>>> Ticket_1
+
+class ContextProcTest(TestCase):
+    """
+    testing context proc, which add settings into context
+    """
+    def setUp(self):
+        self.client = Client()
+        settings.TEST = 'Test_set'
+
+    def test_resp(self):
+        resp = self.client.get(reverse(add_conf))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, settings.TEST)
