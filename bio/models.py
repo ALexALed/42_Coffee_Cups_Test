@@ -17,8 +17,8 @@ class MyBio(models.Model):
     biography  = models.TextField(blank=True)
     contacts   = models.TextField()
 
-
 #register modfels in admin interface
 admin.site.register(MyBio)
+
 
 

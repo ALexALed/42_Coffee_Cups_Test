@@ -1,3 +1,5 @@
+__author__ = 'alexaled'
+
 from django.shortcuts import render_to_response
 from models import MyBio
 
