@@ -7,7 +7,17 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+    <div class="urls">
+        {% block url_line %}
+        {% endblock %}
+    </div>
+    <div class="contents">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="urlmain">
+        {% block url_main_page %}
+        {% endblock %}
+    </div>
 </body>
 </html>

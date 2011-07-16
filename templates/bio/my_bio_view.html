@@ -4,6 +4,10 @@
 My bio page
 {% endblock %}
 
+{% block url_line %}
+   <a href={% url context-proc %}>Context processor page</a>
+{% endblock %}
+
 {% block content %}
     <div class="main">
       {% for bio_inst in my_bio %}
@@ -20,3 +24,4 @@ My bio page
     </div>
 
 {% endblock %}
+
