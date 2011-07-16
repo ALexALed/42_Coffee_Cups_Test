@@ -60,6 +60,9 @@ class ContextProcTest(TestCase):
 
 
 
+
+
+
 class EditDataViewTest(TestCase):
     """
     Test for edit my data view and login/logout users
@@ -67,7 +70,7 @@ class EditDataViewTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user('test', 'test@test.com', 'test')
-        self.my_data = MyBio.objects.get(settings.TESTS_ID)
+        self.my_data = MyBio.objects.get(id=settings.TESTS_ID)
         self.my_inform = {
             'first_name' : "Alex",
             'last_name'  : "Aledinov",
@@ -77,19 +80,19 @@ class EditDataViewTest(TestCase):
         }
 
     def test_resp(self):
-        resp = self.client.get(reverse(edit_data))
+        resp = self.client.get('/my-bio/edit-bio/1/')
         self.assertEqual(resp.status_code, 302)
         self.client.login(username='test', password='test')
-        resp = self.client.get(reverse(edit_data))
+        resp = self.client.get('/my-bio/edit-bio/1/')
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, self.my_data.first_name)
-        resp = self.client.post(reverse(edit_data), self.my_inform)
+        resp = self.client.post('/my-bio/edit-bio/1/', self.my_inform)
         self.assertNotContains(resp, 'This field is required', status_code=302)
         self.my_inform['last_name'] = ''
         self.client.login(username='test', password='test')
-        resp = self.client.post(reverse(edit_data), self.my_inform)
+        resp = self.client.post('/my-bio/edit-bio/1/', self.my_inform)
         self.assertContains(resp, 'This field is required', status_code=200)
-        resp = self.client.get(reverse(my_bio_view))
+        resp = self.client.get('/my-bio/edit-bio/1/')
         for key, value in self.my_inform.items():
             self.assertContains(resp, value)
 
