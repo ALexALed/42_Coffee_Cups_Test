@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Edit data
+{% endblock %}
+
+{% block url_line %}
+    {% if reverse %}
+        <p><a href={% url edit_bio id %}>Normal order fields</a></p>
+    {% else %}
+        <p><a href={% url edit_bio_reverse id %}>Reverse fields</a></p>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="/static/admin/media/css/forms.css" />
+    <script type="text/javascript" src="/jsi18n/"></script>
+    <script type="text/javascript" src="/static/admin/js/core.js"></script>
+    <script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+    <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+    <form action="" method="POST">{% csrf_token %}
+        {{ form.as_p }}
+     <p></p><input type=submit value="Submit"></p>
+     </form>
+
+{% endblock %}
+
+{% block url_main_page %}
+    <p><a href={% url get_bio %}>To main page</a></p>
+{% endblock %}
+

@@ -5,10 +5,12 @@ from django.test import TestCase
 from django.test.client import Client
 from django.http import HttpRequest
 from middleware import HttpRequestMiddleware
-from models import HttpRequestSave
+from models import HttpRequestSave, MyBio
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from views import add_conf
+from views import add_conf, my_bio_view
+from django.contrib.auth.models import User
+
 
 from models import MyBio
 
@@ -52,4 +54,38 @@ class ContextProcTest(TestCase):
     def test_resp(self):
         resp = self.client.get(reverse(add_conf))
         self.assertEqual(resp.status_code, 200)
+
+
+class EditDataViewTest(TestCase):
+    """
+    Test for edit data view and login/logout users
+    """
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user('test', 'test@test.com', 'test')
+        self.my_data = MyBio.objects.get(settings.TESTS_ID)
+        self.my_inform = {
+            'first_name' : "Alex",
+            'last_name'  : "Aledinov",
+            'birth_date' : "1986-03-11",
+            'biography'  : "My bio",
+            'contacts'   : "My contacts",
+        }
+
+    def test_resp(self):
+        resp = self.client.get(reverse(edit_data))
+        self.assertEqual(resp.status_code, 302)
+        self.client.login(username='test', password='test')
+        resp = self.client.get(reverse(edit_data))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, self.my_data.first_name)
+        resp = self.client.post(reverse(edit_data), self.my_inform)
+        self.assertNotContains(resp, 'This field is required', status_code=302)
+        self.my_inform['last_name'] = ''
+        self.client.login(username='test', password='test')
+        resp = self.client.post(reverse(edit_data), self.my_inform)
+        self.assertContains(resp, 'This field is required', status_code=200)
+        resp = self.client.get(reverse(my_bio_view))
+        for key, value in self.my_inform.items():
+            self.assertContains(resp, value)
 
