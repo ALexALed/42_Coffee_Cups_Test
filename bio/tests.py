@@ -56,9 +56,11 @@ class ContextProcTest(TestCase):
         self.assertEqual(resp.status_code, 200)
 
 
+
+
 class EditDataViewTest(TestCase):
     """
-    Test for edit data view and login/logout users
+    Test for edit my data view and login/logout users
     """
     def setUp(self):
         self.client = Client()
