@@ -50,6 +50,6 @@ class ContextProcTest(TestCase):
         settings.TEST = 'Test_set'
 
     def test_resp(self):
-        resp = self.client.get(reverse(add_conf))
+        resp = self.client.get("/my-bio/context-proc/")
         self.assertEqual(resp.status_code, 200)
 
