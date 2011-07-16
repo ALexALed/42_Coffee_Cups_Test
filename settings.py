@@ -118,7 +118,7 @@ INSTALLED_APPS = (
       'django.contrib.messages',
       'django.contrib.staticfiles',
       'django.contrib.admin',
-      'Coffee_Cups_Test.bio',
+      'bio',
 )
 
 
