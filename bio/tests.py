@@ -7,8 +7,7 @@ from django.http import HttpRequest
 from middleware import HttpRequestMiddleware
 from models import HttpRequestSave
 from django.conf import settings
-from django.core.urlresolvers import reverse
-from views import add_conf
+
 
 from models import MyBio
 
