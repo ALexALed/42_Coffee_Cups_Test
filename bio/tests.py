@@ -74,19 +74,19 @@ class EditDataViewTest(TestCase):
         }
 
     def test_resp(self):
-        resp = self.client.get('/my-bio/edit-bio/1')
+        resp = self.client.get('/my-bio/edit-bio/1/')
         self.assertEqual(resp.status_code, 302)
         self.client.login(username='test', password='test')
-        resp = self.client.get('/my-bio/edit-bio/1')
+        resp = self.client.get('/my-bio/edit-bio/1/')
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, self.my_data.first_name)
-        resp = self.client.post('/my-bio/edit-bio/1', self.my_inform)
+        resp = self.client.post('/my-bio/edit-bio/1/', self.my_inform)
         self.assertNotContains(resp, 'This field is required', status_code=302)
         self.my_inform['last_name'] = ''
         self.client.login(username='test', password='test')
-        resp = self.client.post('/my-bio/edit-bio/1', self.my_inform)
+        resp = self.client.post('/my-bio/edit-bio/1/', self.my_inform)
         self.assertContains(resp, 'This field is required', status_code=200)
-        resp = self.client.get('/my-bio/edit-bio/1')
+        resp = self.client.get('/my-bio/edit-bio/1/')
         for key, value in self.my_inform.items():
             self.assertContains(resp, value)
 
