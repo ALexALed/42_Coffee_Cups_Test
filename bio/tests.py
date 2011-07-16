@@ -28,7 +28,7 @@ class TestMyBioView(TestCase):
         self.my_info = MyBio.objects.get(id=settings.TESTS_ID)
 
     def test_resp(self):
-        response = self.client.get(reverse(my_bio_view))
+        response = self.client.get('/my-bio/get-bio/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.my_info.first_name)
         
