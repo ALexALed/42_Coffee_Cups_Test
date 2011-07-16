@@ -1,9 +1,10 @@
 __author__ = 'alexaled'
 
-from django.shortcuts import render_to_response, RequestContext
+from django.shortcuts import render_to_response, RequestContext, HttpResponseRedirect
 
 from models import MyBio
 from context_processors import add_conf_proc
+from forms import BioForm
 
 def my_bio_view(request):
     """

@@ -19,6 +19,7 @@ My bio page
             <p>Biography:  {{ bio_inst.biography }}</p>
             <p>Contacts:   {{ bio_inst.contacts }}</p>
           </div>
+          <a href={% url edit_bio bio_inst.id %}>edit data</a>
           <hr>
       {% endfor %}
     </div>

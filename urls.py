@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 
-from django.contrib import admin, auth
+from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     url(r'^my-bio/', include('Coffee_Cups_Test.bio.urls')),
     url(r'^$',       include('Coffee_Cups_Test.bio.urls')),
     #accounts
-    url(r'^accounts/login/$', auth.views.login),
-    url(r'^accounts/logout/$', auth.views.logout()),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
 
 )

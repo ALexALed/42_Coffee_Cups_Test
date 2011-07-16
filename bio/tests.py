@@ -57,7 +57,7 @@ class ContextProcTest(TestCase):
 
 
 
-
+@login_required
 class EditDataViewTest(TestCase):
     """
     Test for edit my data view and login/logout users
