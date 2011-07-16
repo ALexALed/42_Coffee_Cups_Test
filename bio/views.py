@@ -1,7 +1,7 @@
 __author__ = 'alexaled'
 
 from django.shortcuts import render_to_response, RequestContext, HttpResponseRedirect
-
+from django.contrib.auth.decorators import login_required
 from models import MyBio
 from context_processors import add_conf_proc
 from forms import BioForm
@@ -20,7 +20,7 @@ def my_bio_view(request):
 
     return render_to_response('bio/my_bio_view.html', {'my_bio' : bio_dict})
 
-
+@login_required
 def edit_data(request, id=1, reverse=False):
     """
     views for edit data
