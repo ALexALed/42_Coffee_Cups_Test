@@ -1,5 +1,8 @@
 # Django settings for Coffee_Cups_Test project.
 
+import os
+PROJECT_DIR = os.path.dirname(__file__)
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -12,7 +15,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': r'/media/C0FC-F657/Python/Python_Projects/my_bio/Coffee_Cups_Test/bio.db',                      # Or path to database file if using sqlite3.
+        'NAME':  os.path.join(PROJECT_DIR, 'bio.db'),                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -45,7 +48,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -56,7 +59,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static/')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -105,7 +108,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'Coffee_Cups_Test.urls'
 
-TEMPLATE_DIRS = ('/media/C0FC-F657/Python/Python_Projects/my_bio/Coffee_Cups_Test/templates',)
+TEMPLATE_DIRS = (os.path.join(PROJECT_DIR, 'templates/'),)
 
 INSTALLED_APPS = (
       'django.contrib.auth',
@@ -116,6 +119,12 @@ INSTALLED_APPS = (
       'django.contrib.staticfiles',
       'django.contrib.admin',
       'Coffee_Cups_Test.bio',
+)
+
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'context_processors.add_conf_proc',
+    'django.core.context_processors.auth',
 )
 
 # A sample logging configuration. The only tangible logging

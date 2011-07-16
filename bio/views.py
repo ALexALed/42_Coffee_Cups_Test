@@ -1,7 +1,9 @@
 __author__ = 'alexaled'
 
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, RequestContext
+
 from models import MyBio
+from context_processors import add_conf_proc
 
 def my_bio_view(request):
     all_bio = MyBio.objects.all()
@@ -13,3 +15,7 @@ def my_bio_view(request):
         bio_dict[bio_inst] = bio_inst_dict
 
     return render_to_response('bio/my_bio_view.html', {'my_bio' : bio_dict})
+
+def add_conf(request):
+    return render_to_response('bio/cont_proc.html', {},
+                              context_instance=RequestContext(request, processors=[add_conf_proc]))

@@ -8,7 +8,7 @@ from middleware import HttpRequestMiddleware
 from models import HttpRequestSave
 from django.conf import settings
 from django.core.urlresolvers import reverse
-
+from views import add_conf
 
 from models import MyBio
 
@@ -28,7 +28,7 @@ class TestMyBioModel(TestCase):
 
 class HttpRequestTest(TestCase):
     """
-    testing http request http middleware   
+    testing http request http middleware
     """
     def setUp(self):
         self.client = Client()
@@ -52,4 +52,4 @@ class ContextProcTest(TestCase):
     def test_resp(self):
         resp = self.client.get(reverse(add_conf))
         self.assertEqual(resp.status_code, 200)
-        self.assertContains(resp, settings.TEST)
+
