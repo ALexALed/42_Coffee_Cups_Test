@@ -1,2 +1,2 @@
 # Makefile
-python manage.py test
+python manage.py test bio
