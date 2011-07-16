@@ -1,4 +1,5 @@
 __author__ = 'alexaled'
+
   
 import models
 from django.contrib import admin
@@ -14,3 +15,11 @@ class ModelAdminHttpMidleware(admin.ModelAdmin):
 #register modfels in admin interface
 admin.site.register(models.MyBio)
 admin.site.register(models.HttpRequestSave, ModelAdminHttpMidleware)
+
+
+
+
+
+
+
+

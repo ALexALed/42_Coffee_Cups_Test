@@ -16,9 +16,16 @@ class MyBio(models.Model):
     contacts   = models.TextField()
 
 
+
 class HttpRequestSave(models.Model):
     '''
     HTTP request
     '''
     http_request = models.CharField(max_length=300)
     remote_addr  = models.IPAddressField(blank=True)
+
+
+
+
+
+

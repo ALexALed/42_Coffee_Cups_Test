@@ -122,10 +122,13 @@ INSTALLED_APPS = (
 )
 
 
+
 TEMPLATE_CONTEXT_PROCESSORS = (
     'context_processors.add_conf_proc',
     'django.core.context_processors.auth',
 )
+
+
 
 TESTS_ID = 1
 
