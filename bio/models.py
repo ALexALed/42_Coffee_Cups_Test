@@ -19,6 +19,6 @@ class MyBio(models.Model):
 
 
 #register modfels in admin interface
-admin.site.register(MyBio)
+#admin.site.register(MyBio)
 
 

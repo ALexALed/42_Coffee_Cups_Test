@@ -117,6 +117,8 @@ INSTALLED_APPS = (
       'Coffee_Cups_Test.bio',
 )
 
+TESTS_ID = 1
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error.
