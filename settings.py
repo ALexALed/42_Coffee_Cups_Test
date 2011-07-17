@@ -92,7 +92,7 @@ SECRET_KEY = 'adrhy&ce&7_l&x9vz9s_hnbop*x3is!d^q$!__-=va(%8^$9_k'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -124,7 +124,6 @@ INSTALLED_APPS = (
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'context_processors.add_conf_proc',
     'django.core.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
 )
