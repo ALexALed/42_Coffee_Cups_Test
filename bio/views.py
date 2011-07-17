@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from models import MyBio
+from django.template.loader import get_template
 
 def my_bio_view(request):
     all_bio = MyBio.objects.all()
@@ -10,4 +11,4 @@ def my_bio_view(request):
                          'biography' : bio_inst.biography, 'contacts' : bio_inst.contacts}
         bio_dict[bio_inst] = bio_inst_dict
 
-    return render_to_response('bio/my_bio_view.html', {'my_bio' : bio_dict})
+    return render_to_response(get_template('my_bio_view.html'), {'my_bio' : bio_dict})
