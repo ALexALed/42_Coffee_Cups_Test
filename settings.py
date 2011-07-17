@@ -102,7 +102,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'Coffee_Cups_Test.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = ('/media/C0FC-F657/Python/Python_Projects/my_bio/Coffee_Cups_Test/templates',)
 
