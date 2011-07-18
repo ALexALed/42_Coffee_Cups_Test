@@ -92,7 +92,7 @@ SECRET_KEY = 'adrhy&ce&7_l&x9vz9s_hnbop*x3is!d^q$!__-=va(%8^$9_k'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -106,9 +106,11 @@ MIDDLEWARE_CLASSES = (
     'Coffee_Cups_Test.middleware.HttpRequestMiddleware',
 )
 
-ROOT_URLCONF = 'Coffee_Cups_Test.urls'
+ROOT_URLCONF = 'urls'
 
-TEMPLATE_DIRS = (os.path.join(PROJECT_DIR, 'templates/'),)
+
+TEMPLATE_DIRS = (os.path.join(PROJECT_DIR, 'templates/'),
+                os.path.join(PROJECT_DIR, 'templates/bio/'),)
 
 INSTALLED_APPS = (
       'django.contrib.auth',
@@ -118,8 +120,9 @@ INSTALLED_APPS = (
       'django.contrib.messages',
       'django.contrib.staticfiles',
       'django.contrib.admin',
-      'Coffee_Cups_Test.bio',
+      'bio',
 )
+
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -127,6 +130,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
 )
+
+TESTS_ID = 1
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
