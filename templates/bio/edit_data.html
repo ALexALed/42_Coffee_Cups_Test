@@ -11,7 +11,7 @@
     {% else %}
         <a href={% url edit_bio_reverse id %}>Reverse fields</a>
     {% endif %}
-    <a href="{% edit_link obj%}">Edit in admin</a>
+        <a href="{% edit_link obj%}">Edit in admin</a>
 {% endblock %}
 
 {% block content %}
@@ -22,12 +22,10 @@
     <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
     <form action="" method="POST">{% csrf_token %}
         {{ form.as_p }}
-     <p></p><input type=submit value="Submit"></p>
-     </form>
-
+    <p></p><input type=submit value="Submit"></p>
+    </form>
 {% endblock %}
 
 {% block url_main_page %}
     <p><a href={% url get-bio %}>To main page</a></p>
 {% endblock %}
-

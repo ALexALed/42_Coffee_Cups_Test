@@ -9,11 +9,11 @@ from middleware import HttpRequestMiddleware
 from models import HttpRequestSave, MyBio
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from views import add_conf, my_bio_view
 from django.contrib.auth.models import User
+from django.core.management import call_command
 
 from models import MyBio
-from views import my_bio_view
+
 
 class TestMyBioModel(TestCase):
     """
@@ -27,8 +27,6 @@ class TestMyBioModel(TestCase):
             biography = "My bio",
             contacts = "My contacts",
         )
-
-
 
 class HttpRequestTest(TestCase):
     """
@@ -123,3 +121,13 @@ class TemplateTagEditAdminTest(TestCase):
         self.admintagurl = reverse('admin:%s_%s_change' % (self.my_data._meta.app_label, self.my_data._meta.module_name),
             args=(self.my_data.id,))
         self.assertContains(resp, self.admintagurl)
+
+class CommandsTest(TestCase):
+    """
+    testing manage commands
+    """
+    def setUp(self):
+        pass
+
+    def test_commands(self):
+        self.assertEqual(show_models.Command().handle().count('MyBio34343'), 1)
