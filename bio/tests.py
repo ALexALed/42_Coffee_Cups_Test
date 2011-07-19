@@ -130,4 +130,4 @@ class CommandsTest(TestCase):
         pass
 
     def test_commands(self):
-        self.assertEqual(show_models.Command().handle().count('MyBio34343'), 1)
+        self.assertEqual(show_models.Command().handle().count('MyBio'), 1)
