@@ -104,3 +104,22 @@ class TestMyBioView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.my_info.first_name)
         
+
+class TemplateTagEditAdminTest(TestCase):
+    """
+    test for admin edit template tag
+    """
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user('test', 'test@test.com', 'test')
+        self.my_data = MyBio.objects.get(id=settings.TESTS_ID)
+
+    def test_resp(self):
+        resp = self.client.get('/my-bio/edit-bio/' + str(settings.TESTS_ID) + '/')
+        self.assertEqual(resp.status_code, 302)
+        self.client.login(username='test', password='test')
+        resp = self.client.get('/my-bio/edit-bio/' + str(settings.TESTS_ID) + '/')
+        self.assertEqual(resp.status_code, 200)
+        self.admintagurl = reverse('admin:%s_%s_change' % (self.my_data._meta.app_label, self.my_data._meta.module_name),
+            args=(self.my_data.id,))
+        self.assertContains(resp, self.admintagurl)
