@@ -1,2 +1,2 @@
-__author__ = 'aleksey.aledinov'
+_author__ = 'aleksey.aledinov'
   

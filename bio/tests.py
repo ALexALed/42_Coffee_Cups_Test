@@ -10,10 +10,10 @@ from models import HttpRequestSave, MyBio
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.core.management import call_command
 
 from models import MyBio
 
+from bio.management.commands import show_models
 
 class TestMyBioModel(TestCase):
     """
