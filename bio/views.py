@@ -49,7 +49,7 @@ def edit_data(request, id=1, reverse=False):
         if reverse:
                 form.fields.keyOrder.reverse()
 
-    return render_to_response('bio/edit_data.html', {'form':form, 'id':id, 'reverse':reverse})
+    return render_to_response('bio/edit_data.html', {'form':form, 'id':id, 'reverse':reverse, 'obj':my_bio_edit})
 
 
 
