@@ -38,10 +38,12 @@ class HttpRequestTest(TestCase):
         self.req        = HttpRequest()
         self.req.META['REMOTE_ADDR'] = 'test_ip'
         self.mid_req = self.middleware.process_request(self.req)
-
+        
     def test_middlew(self):
         req = HttpRequestSave.objects.order_by('-id')[0]
         self.assertEquals(req.remote_addr, self.req.META['REMOTE_ADDR'])
+        # priority test
+        self.assertEquals(req.priority, 0)
 
 class ContextProcTest(TestCase):
     """
