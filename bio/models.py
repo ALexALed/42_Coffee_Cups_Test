@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.signals import post_init, post_save, post_delete
 import datetime
 
+PRIORITY_CH = ((0 ,0), (1, 1))
+
 def signals_init(sender, **kwargs):
     save_signal(sender, 'init')
 
@@ -41,13 +43,13 @@ class MyBio(models.Model):
     contacts   = models.TextField()
 
 
-
 class HttpRequestSave(models.Model):
     '''
     HTTP request
     '''
     http_request = models.CharField(max_length=300)
     remote_addr  = models.IPAddressField(blank=True)
+    priority     = models.IntegerField(choices=PRIORITY_CH)
 
 class DbSignals(models.Model):
     """

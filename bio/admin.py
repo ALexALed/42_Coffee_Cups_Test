@@ -6,10 +6,9 @@ from django.contrib import admin
 
 
 class ModelAdminHttpMidleware(admin.ModelAdmin):
-    fields = ( 'http_request', 'remote_addr',)
-    list_display = ( 'http_request', 'remote_addr',)
-
-
+    
+    fields = ( 'http_request', 'remote_addr', 'priority')
+    list_display = ( 'http_request', 'remote_addr', 'priority')
     
 
 #register modfels in admin interface
