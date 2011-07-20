@@ -6,7 +6,7 @@ from django.test.client import Client
 
 from django.http import HttpRequest
 from middleware import HttpRequestMiddleware
-from models import HttpRequestSave, MyBio
+from models import HttpRequestSave, MyBio, DbSignals
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -131,3 +131,23 @@ class CommandsTest(TestCase):
 
     def test_commands(self):
         self.assertEqual(show_models.Command().handle().count('MyBio'), 1)
+
+class SignalsDbTest(TestCase):
+    """
+    testing db signsls
+    """
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_signals(self):
+        self.my_data = MyBio.objects.get(id=settings.TESTS_ID)
+        sig = DbSignals.objects.order_by('-id')[0]
+        self.assertEqual(sig.signal, 'init')
+        self.last_name = 'test_name'
+        self.my_data.save()
+        sig = DbSignals.objects.order_by('-id')[0]
+        self.assertEqual(sig.signal, 'save')
+        self.my_data.delete()
+        sig = DbSignals.objects.order_by('-id')[0]
+        self.assertEqual(sig.signal, 'delete')
