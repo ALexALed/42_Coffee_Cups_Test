@@ -14,6 +14,7 @@ class ModelAdminHttpMidleware(admin.ModelAdmin):
 
 #register modfels in admin interface
 admin.site.register(models.MyBio)
+admin.site.register(models.DbSignals)
 admin.site.register(models.HttpRequestSave, ModelAdminHttpMidleware)
 
 
