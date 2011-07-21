@@ -9,4 +9,5 @@ urlpatterns = patterns('',
                        url(r'^edit-bio-reverse/(\d+)/$', views.edit_data, {'reverse':True}, name='edit_bio_reverse'),
                        url(r'^$',                        views.my_bio_view),
                        url(r'^context-proc/$',           views.add_conf, name='context-proc'),
+                       url(r'^req-list/$',               views.http_view, name='req-list'),
                        )

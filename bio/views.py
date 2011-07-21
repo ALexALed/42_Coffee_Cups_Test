@@ -2,7 +2,7 @@ __author__ = 'alexaled'
 
 from django.shortcuts import render_to_response, RequestContext, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from models import MyBio
+from models import MyBio, HttpRequestSave
 
 from context_processors import add_conf_proc
 from forms import BioForm
@@ -59,4 +59,9 @@ def add_conf(request):
     """
     return render_to_response('bio/cont_proc.html', {},
                               context_instance=RequestContext(request, processors=[add_conf_proc]))
+
+
+def http_view(request):
+    ten_last_req = HttpRequestSave.objects.order_by('-id')[0:10]
+    return render_to_response('bio/http_request.html', {'ten_last_req':ten_last_req})
 

@@ -153,3 +153,18 @@ class SignalsDbTest(TestCase):
         self.my_data.delete()
         sig = DbSignals.objects.order_by('-id')[0]
         self.assertEqual(sig.signal, 'delete')
+
+class TestHttpRequestView(TestCase):
+    """
+    testing view for http request
+    """
+    def setUp(self):
+        self.client = Client()
+
+    def test_resp(self):
+        response = self.client.get('/my-bio/req-list/')
+        self.assertEqual(response.status_code, 200)
+        ten_last_req = HttpRequestSave.objects.order_by('-id')[0:10]
+        for req in ten_last_req:
+            self.assertContains(response, req.http_request)
+            self.assertContains(response, req.remote_addr)
