@@ -103,7 +103,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.csrf.CsrfResponseMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'Coffee_Cups_Test.middleware.HttpRequestMiddleware',
+    'middleware.HttpRequestMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -126,6 +126,7 @@ INSTALLED_APPS = (
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
+    'context_processors.add_conf_proc',
     'django.core.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
 )

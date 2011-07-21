@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title%}
+Content proc result
+{% endblock %}
+
+{% block content %}
+  <p>{{ settings.INSTALLED_APPS }}</p>
+{% endblock %}
+
+{% block url_main_page %}
+        <a href={% url get-bio %}>Main page</a>
+{% endblock %}

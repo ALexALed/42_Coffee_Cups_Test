@@ -4,6 +4,10 @@
 My bio page
 {% endblock %}
 
+{% block url_line %}
+   <a href={% url context-proc %}>Context processor page</a>
+{% endblock %}
+
 {% block content %}
     <div class="main">
       {% for bio_inst in my_bio %}
@@ -15,8 +19,10 @@ My bio page
             <p>Biography:  {{ bio_inst.biography }}</p>
             <p>Contacts:   {{ bio_inst.contacts }}</p>
           </div>
+          <a href={% url edit_bio bio_inst.id %}>edit data</a>
           <hr>
       {% endfor %}
     </div>
 
 {% endblock %}
+
