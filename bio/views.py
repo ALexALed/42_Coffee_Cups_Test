@@ -63,5 +63,9 @@ def add_conf(request):
 
 def http_view(request):
     ten_last_req = HttpRequestSave.objects.order_by('-id')[0:10]
+    id_prefix = 'r_id'
+    for req in ten_last_req:
+        req.id = id_prefix + str(req.id)
+
     return render_to_response('bio/http_request.html', {'ten_last_req':ten_last_req})
 

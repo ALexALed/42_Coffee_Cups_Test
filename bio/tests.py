@@ -162,9 +162,10 @@ class TestHttpRequestView(TestCase):
         self.client = Client()
 
     def test_resp(self):
-        response = self.client.get('/my-bio/req-list/')
-        self.assertEqual(response.status_code, 200)
+        for i in xrange(1,31):
+            response = self.client.get('/my-bio/req-list/')
+            self.assertEqual(response.status_code, 200)
         ten_last_req = HttpRequestSave.objects.order_by('-id')[0:10]
         for req in ten_last_req:
-            self.assertContains(response, req.http_request)
-            self.assertContains(response, req.remote_addr)
+            self.assertContains(response, 'r_id%s' % (req.id,))
+            
