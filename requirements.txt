@@ -1,2 +1,1 @@
 django
-pep8 -r .

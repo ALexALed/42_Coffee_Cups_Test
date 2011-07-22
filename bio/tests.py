@@ -15,18 +15,20 @@ from models import MyBio
 
 from bio.management.commands import show_models
 
+
 class TestMyBioModel(TestCase):
     """
     testing model in app bio
     """
     def setUp(self):
         self.my_bio = MyBio.objects.create(
-            first_name= "Alex",
-            last_name = "Aledinov",
-            birth_date= "1986-03-11",
-            biography = "My bio",
-            contacts = "My contacts",
+            first_name="Alex",
+            last_name="Aledinov",
+            birth_date="1986-03-11",
+            biography="My bio",
+            contacts="My contacts",
         )
+
 
 class HttpRequestTest(TestCase):
     """
@@ -35,15 +37,16 @@ class HttpRequestTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.middleware = HttpRequestMiddleware()
-        self.req        = HttpRequest()
+        self.req = HttpRequest()
         self.req.META['REMOTE_ADDR'] = 'test_ip'
         self.mid_req = self.middleware.process_request(self.req)
-        
+
     def test_middlew(self):
         req = HttpRequestSave.objects.order_by('-id')[0]
         self.assertEquals(req.remote_addr, self.req.META['REMOTE_ADDR'])
         # priority test
         self.assertEquals(req.priority, 0)
+
 
 class ContextProcTest(TestCase):
     """
@@ -57,6 +60,7 @@ class ContextProcTest(TestCase):
         resp = self.client.get("/my-bio/context-proc/")
         self.assertEqual(resp.status_code, 200)
 
+
 class EditDataViewTest(TestCase):
     """
     Test for edit my data view and login/logout users
@@ -66,11 +70,11 @@ class EditDataViewTest(TestCase):
         self.user = User.objects.create_user('test', 'test@test.com', 'test')
         self.my_data = MyBio.objects.get(id=settings.TESTS_ID)
         self.my_inform = {
-            'first_name' : "Alex",
-            'last_name'  : "Aledinov",
-            'birth_date' : "1986-03-11",
-            'biography'  : "My bio",
-            'contacts'   : "My contacts",
+            'first_name': "Alex",
+            'last_name': "Aledinov",
+            'birth_date': "1986-03-11",
+            'biography': "My bio",
+            'contacts': "My contacts",
         }
 
     def test_resp(self):
@@ -103,7 +107,7 @@ class TestMyBioView(TestCase):
         response = self.client.get('/my-bio/get-bio/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.my_info.first_name)
-        
+
 
 class TemplateTagEditAdminTest(TestCase):
     """
@@ -115,14 +119,19 @@ class TemplateTagEditAdminTest(TestCase):
         self.my_data = MyBio.objects.get(id=settings.TESTS_ID)
 
     def test_resp(self):
-        resp = self.client.get('/my-bio/edit-bio/' + str(settings.TESTS_ID) + '/')
+        resp = self.client.get('/my-bio/edit-bio/' +
+                               str(settings.TESTS_ID) + '/')
         self.assertEqual(resp.status_code, 302)
         self.client.login(username='test', password='test')
-        resp = self.client.get('/my-bio/edit-bio/' + str(settings.TESTS_ID) + '/')
+        resp = self.client.get('/my-bio/edit-bio/' +
+                               str(settings.TESTS_ID) + '/')
         self.assertEqual(resp.status_code, 200)
-        self.admintagurl = reverse('admin:%s_%s_change' % (self.my_data._meta.app_label, self.my_data._meta.module_name),
+        self.admintagurl = reverse('admin:%s_%s_change' %
+                                   (self.my_data._meta.app_label,
+                                    self.my_data._meta.module_name),
             args=(self.my_data.id,))
         self.assertContains(resp, self.admintagurl)
+
 
 class CommandsTest(TestCase):
     """
@@ -133,6 +142,7 @@ class CommandsTest(TestCase):
 
     def test_commands(self):
         self.assertEqual(show_models.Command().handle().count('MyBio'), 1)
+
 
 class SignalsDbTest(TestCase):
     """
@@ -153,6 +163,7 @@ class SignalsDbTest(TestCase):
         self.my_data.delete()
         sig = DbSignals.objects.order_by('-id')[0]
         self.assertEqual(sig.signal, 'delete')
+
 
 class TestHttpRequestView(TestCase):
     """
