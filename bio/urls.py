@@ -1,6 +1,7 @@
 __author__ = 'alexaled'
 
 from django.conf.urls.defaults import patterns, url
+
 import views
 
 urlpatterns = patterns('',

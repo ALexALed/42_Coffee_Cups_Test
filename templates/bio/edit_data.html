@@ -15,17 +15,40 @@
 {% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="/static/admin/media/css/forms.css" />
-    <script type="text/javascript" src="/jsi18n/"></script>
-    <script type="text/javascript" src="/static/admin/js/core.js"></script>
-    <script type="text/javascript" src="/static/admin/js/calendar.js"></script>
-    <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
-    <form action="" method="POST">{% csrf_token %}
+	<script type="text/javascript" src="/static/js/jquery-1.5.1.min.js"></script>
+	<script type="text/javascript" src="/static/js/jquery-ui-1.8.14.custom.min.js"></script>
+	<script type="text/javascript">
+         jQuery(function() {
+               jQuery("#id_birth_date").datepicker({ dateFormat: 'dd/mm/yy' });
+            });
+    </script>
+    <script type="text/javascript">
+              jQuery(function() {
+                  var form = jQuery("#editform");
+                  form.submit(function(e) {
+                      jQuery("#sendbutton").attr('disabled', true)
+                      jQuery("#sendwrapper").prepend('<span>Sending your bio, please wait... </span>')
+                      jQuery("#ajaxwrapper").load(
+                          form.attr('action') + ' #ajaxwrapper',
+                          form.serializeArray(),
+                          function(responseText, responseStatus) {
+                              jQuery("#sendbutton").attr('disabled', false)
+                         }
+                      );
+                      e.preventDefault();
+                  });
+                });
+    </script>
+    <form  id="editform" action="" method="POST">{% csrf_token %}
+    <div id="ajaxwrapper">
         {{ form.as_p }}
-    <p><input type=submit value="Submit"></p>
+     <p id="sendwrapper"></p>
+     <p><input id="sendbutton" type=submit value="Submit"></p>
+    </div>
     </form>
+
 {% endblock %}
 
 {% block url_main_page %}
-    <p><a href={% url get-bio %}>To main page</a></p>
+     <p><a href={% url get-bio %}>To main page</a></p>
 {% endblock %}
