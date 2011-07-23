@@ -10,7 +10,7 @@ from models import HttpRequestSave, MyBio, DbSignals
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from views import my_bio_view, edit_data
+from views import my_bio_view, edit_data, add_conf, http_view
 
 from models import MyBio
 
@@ -58,7 +58,7 @@ class ContextProcTest(TestCase):
         settings.TEST = 'Test_set'
 
     def test_resp(self):
-        resp = self.client.get("/my-bio/context-proc/")
+        resp = self.client.get(reverse(add_conf))
         self.assertEqual(resp.status_code, 200)
 
 
@@ -79,19 +79,19 @@ class EditDataViewTest(TestCase):
         }
 
     def test_resp(self):
-        resp = self.client.get('/my-bio/edit-bio/1/')
+        resp = self.client.get(reverse(edit_data, args=(1,)))
         self.assertEqual(resp.status_code, 302)
         self.client.login(username='test', password='test')
-        resp = self.client.get('/my-bio/edit-bio/1/')
+        resp = self.client.get(reverse(edit_data, args=(1,)))
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, self.my_data.first_name)
         resp = self.client.post(reverse(edit_data, args=(1,)), self.my_inform)
         self.assertNotContains(resp, 'This field is required', status_code=302)
         self.my_inform['last_name'] = ''
         self.client.login(username='test', password='test')
-        resp = self.client.post('/my-bio/edit-bio/1/', self.my_inform)
+        resp = self.client.post(reverse(edit_data, args=(1,)), self.my_inform)
         self.assertContains(resp, 'This field is required', status_code=200)
-        resp = self.client.get('/my-bio/edit-bio/1/')
+        resp = self.client.get(reverse(edit_data, args=(1,)))
         for key, value in self.my_inform.items():
             self.assertContains(resp, value)
 
@@ -105,7 +105,7 @@ class TestMyBioView(TestCase):
         self.my_info = MyBio.objects.get(id=settings.TESTS_ID)
 
     def test_resp(self):
-        response = self.client.get('/my-bio/get-bio/')
+        response = self.client.get(reverse(my_bio_view))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.my_info.first_name)
 
@@ -120,12 +120,10 @@ class TemplateTagEditAdminTest(TestCase):
         self.my_data = MyBio.objects.get(id=settings.TESTS_ID)
 
     def test_resp(self):
-        resp = self.client.get('/my-bio/edit-bio/' +
-                               str(settings.TESTS_ID) + '/')
+        resp = self.client.get(reverse(edit_data, args=(1,)))
         self.assertEqual(resp.status_code, 302)
         self.client.login(username='test', password='test')
-        resp = self.client.get('/my-bio/edit-bio/' +
-                               str(settings.TESTS_ID) + '/')
+        resp = self.client.get(reverse(edit_data, args=(1,)))
         self.assertEqual(resp.status_code, 200)
         self.admintagurl = reverse('admin:%s_%s_change' %
                                    (self.my_data._meta.app_label,
@@ -175,7 +173,7 @@ class TestHttpRequestView(TestCase):
 
     def test_resp(self):
         for i in xrange(1, 31):
-            response = self.client.get('/my-bio/req-list/')
+            response = self.client.get(reverse(http_view))
             self.assertEqual(response.status_code, 200)
         ten_last_req = HttpRequestSave.objects.order_by('-id')[0:10]
         for req in ten_last_req:
