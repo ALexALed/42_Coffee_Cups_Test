@@ -14,12 +14,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME':  os.path.join(PROJECT_DIR, 'bio.db'),                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME':  os.path.join(PROJECT_DIR, 'bio.db'),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -123,8 +123,6 @@ INSTALLED_APPS = (
       'bio',
 )
 
-
-
 TEMPLATE_CONTEXT_PROCESSORS = (
     'context_processors.add_conf_proc',
     'django.core.context_processors.auth',
@@ -144,9 +142,7 @@ LOGGING = {
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
+            'class': 'django.utils.log.AdminEmailHandler'}},
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],

@@ -1,10 +1,12 @@
 __author__ = 'alexaled'
 
-from django import template
 
+from django import template
 from django.core.urlresolvers import reverse
 
+
 register = template.Library()
+
 
 @register.tag
 def edit_link(parser, token):
@@ -13,10 +15,11 @@ def edit_link(parser, token):
     """
     try:
         tag_name, edit_object = token.contents.split()
-    except :
+    except:
         message = 'tag error'
         raise template.TemplateSyntaxError(message)
     return EditLinkAdminNode(edit_object)
+
 
 class EditLinkAdminNode(template.Node):
     """
@@ -28,7 +31,7 @@ class EditLinkAdminNode(template.Node):
     def render(self, context):
         try:
             obj = self.edit_object.resolve(context)
-            return reverse('admin:%s_%s_change' % (obj._meta.app_label, obj._meta.module_name), args=(obj.id,))
+            return reverse('admin:%s_%s_change' %
+                (obj._meta.app_label, obj._meta.module_name), args=(obj.id,))
         except template.VariableDoesNotExist:
             return ''
-

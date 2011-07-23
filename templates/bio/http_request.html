@@ -7,7 +7,8 @@ Http request page, first 10
 {% block content %}
     <ol>
     {% for req in ten_last_req %}
-        <li>Id <b>{{ req.id }}</b> request <b>{{ req.http_request }}</b> from <b>{{ req.remote_addr }}</b> with priority <b>{{ req.priority }}</b></li>
+        <li>Request <b>{{ req.http_request }}</b> from <b>{{ req.remote_addr }}
+        </b> with priority <b>{{ req.priority }}</b><a href={%url edit_http req.id %}> edit</a> </li>
     {% endfor %}
     </ol>
 {% endblock %}
