@@ -1,11 +1,12 @@
 __author__ = 'alexaled'
 
 from django.shortcuts import render_to_response, RequestContext, \
-    HttpResponseRedirect
+    HttpResponseRedirect, redirect, render, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-from models import MyBio, HttpRequestSave
+from django.utils import simplejson
 
+from models import MyBio, HttpRequestSave
 from context_processors import add_conf_proc
 from forms import BioForm, HttpEditForm
 
@@ -39,22 +40,20 @@ def edit_data(request, id=1, rev=False):
     except:
         my_bio_edit = MyBio.objects.create()
 
-    if request.POST:
+    if request.POST and request.is_ajax():
         form = BioForm(request.POST, instance=my_bio_edit)
+        if rev:
+            form.fields.keyOrder.reverse()
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse(my_bio_view))
-        else:
-            if reverse:
-                form.fields.keyOrder.reverse()
-
+            return redirect('get-bio')
     else:
         form = BioForm(instance=my_bio_edit)
-        if reverse:
+        if rev:
                 form.fields.keyOrder.reverse()
 
     return render_to_response('bio/edit_data.html',
-            {'form': form, 'id': id, 'reverse': reverse, 'obj': my_bio_edit})
+            {'form': form, 'id': id, 'reverse': rev, 'obj': my_bio_edit})
 
 
 @login_required

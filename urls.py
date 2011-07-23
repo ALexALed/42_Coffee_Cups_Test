@@ -1,6 +1,9 @@
 from django.conf.urls.defaults import patterns, include, url
 
 from django.contrib import admin
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -11,7 +14,8 @@ urlpatterns = patterns('',
     #accounts
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
-
-    #data widget
-    url(r'^jsi18n',  'django.views.i18n.javascript_catalog'),
+    url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_ROOT}),
 )
+
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()
