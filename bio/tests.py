@@ -10,10 +10,11 @@ from models import HttpRequestSave, MyBio, DbSignals
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from views import my_bio_view, edit_data
 
 from models import MyBio
 
-from bio.management.commands import show_models
+from management.commands import show_models
 
 
 class TestMyBioModel(TestCase):
@@ -84,7 +85,7 @@ class EditDataViewTest(TestCase):
         resp = self.client.get('/my-bio/edit-bio/1/')
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, self.my_data.first_name)
-        resp = self.client.post('/my-bio/edit-bio/1/', self.my_inform)
+        resp = self.client.post(reverse(edit_data, args=(1,)), self.my_inform)
         self.assertNotContains(resp, 'This field is required', status_code=302)
         self.my_inform['last_name'] = ''
         self.client.login(username='test', password='test')
@@ -178,4 +179,4 @@ class TestHttpRequestView(TestCase):
             self.assertEqual(response.status_code, 200)
         ten_last_req = HttpRequestSave.objects.order_by('-id')[0:10]
         for req in ten_last_req:
-            self.assertContains(response, 'r_id%s' % (req.id,))
+            self.assertContains(response, req.id)
