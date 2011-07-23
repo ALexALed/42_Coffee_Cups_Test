@@ -6,13 +6,12 @@ from models import MyBio, HttpRequestSave
 
 
 class BioForm(forms.ModelForm):
-    birth_date = forms.DateField(('%d/%m/%Y',), label='Birth Date', required=False,
+    birth_date = forms.DateField(('%d/%m/%Y',),
+                                    label='Birth Date', required=False,
         widget=forms.DateTimeInput(format='%d/%m/%Y', attrs={
-            'class':'input',
-            'readonly':'readonly',
-            'size':'15'
-        })
-    )
+            'class': 'input',
+            'readonly': 'readonly',
+            'size': '15'}))
 
     class Meta:
         model = MyBio
