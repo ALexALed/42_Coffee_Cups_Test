@@ -174,7 +174,7 @@ class TestHttpRequestView(TestCase):
         self.client = Client()
 
     def test_resp(self):
-        for i in xrange(1,31):
+        for i in xrange(1, 31):
             response = self.client.get('/my-bio/req-list/')
             self.assertEqual(response.status_code, 200)
         ten_last_req = HttpRequestSave.objects.order_by('-id')[0:10]
