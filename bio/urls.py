@@ -15,4 +15,6 @@ urlpatterns = patterns('',
                                                          name='context-proc'),
                        url(r'^req-list/$',               views.http_view,
                                                          name='req-list'),
+                       url(r'^edit-request/(\d+)/$',     views.edit_data_http,
+                                                         name='edit_http'),
                        )

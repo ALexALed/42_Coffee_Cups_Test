@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load edit_link %}
+
+{% block title %}
+    Edit data
+{% endblock %}
+
+{% block url_line %}
+    {% if reverse %}
+        <a href={% url edit_bio id %}>Normal order fields</a>
+    {% else %}
+        <a href={% url edit_bio_reverse id %}>Reverse fields</a>
+    {% endif %}
+        <a href="{% edit_link obj%}">Edit in admin</a>
+
+    <a href={% url req-list %}>Requests list</a>
+{% endblock %}
+
+{% block content %}
+    <form action="" method="POST">{% csrf_token %}
+        {{ form.as_p }}
+    <p></p><input type=submit value="Submit"></p>
+    </form>
+{% endblock %}
+
+{% block url_main_page %}
+    <p><a href={% url get-bio %}>To main page</a></p>
+{% endblock %}
