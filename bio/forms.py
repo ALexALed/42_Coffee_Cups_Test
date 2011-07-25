@@ -6,9 +6,9 @@ from models import MyBio, HttpRequestSave
 
 
 class BioForm(forms.ModelForm):
-    birth_date = forms.DateField(('%d/%m/%Y',),
+    birth_date = forms.DateField(('%Y-%m-%d',),
                                     label='Birth Date', required=False,
-        widget=forms.DateTimeInput(format='%d/%m/%Y', attrs={
+        widget=forms.DateTimeInput(format='%Y-%m-%d', attrs={
             'class': 'input',
             'readonly': 'readonly',
             'size': '15'}))
