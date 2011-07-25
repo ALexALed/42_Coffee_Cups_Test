@@ -35,7 +35,6 @@ def edit_data(request, id=1, rev=False):
     """
     views for edit data
     """
-    
     try:
         my_bio_edit = MyBio.objects.get(id=id)
     except:
