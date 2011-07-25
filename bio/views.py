@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response, RequestContext, \
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils import simplejson
+from django.template import loader
 
 from models import MyBio, HttpRequestSave
 from context_processors import add_conf_proc
@@ -34,19 +35,23 @@ def edit_data(request, id=1, rev=False):
     """
     views for edit data
     """
-
+    
     try:
         my_bio_edit = MyBio.objects.get(id=id)
     except:
         my_bio_edit = MyBio.objects.create()
 
-    if request.POST and request.is_ajax():
+    if request.POST:
         form = BioForm(request.POST, instance=my_bio_edit)
         if rev:
             form.fields.keyOrder.reverse()
+        # ajax form
         if form.is_valid():
             form.save()
-            return redirect('get-bio')
+            if request.is_ajax():
+                return HttpResponse("Done!")
+        return redirect(my_bio_view)
+
     else:
         form = BioForm(instance=my_bio_edit)
         if rev:

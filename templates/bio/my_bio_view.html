@@ -12,7 +12,6 @@ My bio page
 {% block content %}
     <div class="main">
       {% for bio_inst in my_bio %}
-          <hr>
           <div class="fields">
             <p>First name: {{ bio_inst.first_name }}</p>
             <p>Last name:  {{ bio_inst.last_name }}</p>
@@ -21,7 +20,6 @@ My bio page
             <p>Contacts:   {{ bio_inst.contacts }}</p>
           </div>
           <a href={% url edit_bio bio_inst.id %}>edit data</a>
-          <hr>
       {% endfor %}
     </div>
 

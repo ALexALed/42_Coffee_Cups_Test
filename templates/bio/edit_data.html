@@ -28,17 +28,14 @@
                   form.submit(function(e) {
                       jQuery("#sendbutton").attr('disabled', true)
                       jQuery("#sendwrapper").prepend('<span>Sending your bio, please wait... </span>')
-                      jQuery("#ajaxwrapper").load(
-                          form.attr('action') + ' #ajaxwrapper',
-                          form.serializeArray(),
-                          function(responseText, responseStatus) {
-                              jQuery("#sendbutton").attr('disabled', false)
-                         }
-                      );
-                      e.preventDefault();
+                      $('#id_first_name').attr('disabled', 'disabled');
+                      $('#id_last_name').attr('disabled', 'disabled');
+                      $('#id_biography').attr('disabled', 'disabled');
+                      $('#id_contacts').attr('disabled', 'disabled');
                   });
                 });
     </script>
+
     <form  id="editform" action="" method="POST">{% csrf_token %}
     <div id="ajaxwrapper">
         {{ form.as_p }}
