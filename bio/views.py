@@ -49,7 +49,8 @@ def edit_data(request, id=1, rev=False):
             form.save()
             if request.is_ajax():
                 return HttpResponse("Done!")
-        return redirect(my_bio_view)
+            return redirect(my_bio_view)
+        #return
 
     else:
         form = BioForm(instance=my_bio_edit)

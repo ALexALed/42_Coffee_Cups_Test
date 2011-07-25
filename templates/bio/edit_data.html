@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="/static/js/jquery-ui-1.8.14.custom.min.js"></script>
 	<script type="text/javascript">
          jQuery(function() {
-               jQuery("#id_birth_date").datepicker({ dateFormat: 'dd/mm/yy' });
+               jQuery("#id_birth_date").datepicker({ dateFormat: 'yy-mm-dd' });
             });
     </script>
     <script type="text/javascript">
@@ -28,10 +28,6 @@
                   form.submit(function(e) {
                       jQuery("#sendbutton").attr('disabled', true)
                       jQuery("#sendwrapper").prepend('<span>Sending your bio, please wait... </span>')
-                      $('#id_first_name').attr('disabled', 'disabled');
-                      $('#id_last_name').attr('disabled', 'disabled');
-                      $('#id_biography').attr('disabled', 'disabled');
-                      $('#id_contacts').attr('disabled', 'disabled');
                   });
                 });
     </script>
