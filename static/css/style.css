@@ -12,3 +12,8 @@
            border-width: medium;
            border-style: groove;
            border-color: #006400;}
+
+#errors {font-family: Geneva, Arial, Helvetica, sans-serif;
+           font-size: 17px;
+           text-align: left;
+           color: #cd0a0a; }

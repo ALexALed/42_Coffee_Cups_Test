@@ -44,14 +44,9 @@ def edit_data(request, id=1, rev=False):
         form = BioForm(request.POST, instance=my_bio_edit)
         if rev:
             form.fields.keyOrder.reverse()
-        # ajax form
         if form.is_valid():
             form.save()
-            if request.is_ajax():
-                return HttpResponse("Done!")
             return redirect(my_bio_view)
-        #return
-
     else:
         form = BioForm(instance=my_bio_edit)
         if rev:

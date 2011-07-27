@@ -23,13 +23,33 @@
             });
     </script>
     <script type="text/javascript">
-              jQuery(function() {
-                  var form = jQuery("#editform");
-                  form.submit(function(e) {
-                      jQuery("#sendbutton").attr('disabled', true)
-                      jQuery("#sendwrapper").prepend('<span>Sending your bio, please wait... </span>')
-                  });
+                var options = {
+                    beforeSubmit:  showRequest,
+                    success:       showResponse,
+                    dataType:  'json' 
+                };
+
+                $('#sendbutton').click(function() {
+                    $('#editform').ajaxSubmit(options);
                 });
+
+              function showRequest(formData, jqForm, options) {
+                    $("#errors").hide();
+                     jQuery("#sendbutton").attr('disabled', true)
+                     jQuery("#id_last_name").attr('disabled', true)
+                     jQuery("#id_first_name").attr('disabled', true)
+                     jQuery("#id_contacts").attr('disabled', true)
+                     jQuery("#id_biography").attr('disabled', true)
+                     jQuery("#id_biography").attr('disabled', true)
+                     jQuery("#sendwrapper").prepend('<span>Sending your bio, please wait... </span>')
+                    return true;
+                }
+
+              function showResponse(response, statusText, xhr, $form)  {
+                    if (response.status == 1) {
+                        $("#errors").show();
+                    }
+                }
     </script>
 
     <form  id="editform" action="" method="POST">{% csrf_token %}
@@ -38,6 +58,11 @@
      <p id="sendwrapper"></p>
      <p><input id="sendbutton" type=submit value="Submit"></p>
     </div>
+        <div id="errors">
+                {% for error in form.errors %}
+                    <p>{{ error }} not valid.</p>
+                {% endfor %}
+        </div>
     </form>
 
 {% endblock %}
