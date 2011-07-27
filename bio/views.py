@@ -60,7 +60,6 @@ def edit_data(request, id=1, rev=False):
     return render_to_response('bio/edit_data.html',
             {'form': form, 'id': id, 'reverse': rev, 'obj': my_bio_edit})
 
-
 @login_required
 def edit_data_http(request, id=1):
     """
