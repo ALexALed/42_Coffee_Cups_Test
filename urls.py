@@ -1,8 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
-
-from django.contrib import admin
-from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib import admin
 
 admin.autodiscover()
 
@@ -14,6 +12,7 @@ urlpatterns = patterns('',
     #accounts
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
-    url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.STATIC_ROOT}),
+
 )
+
+urlpatterns += staticfiles_urlpatterns()
