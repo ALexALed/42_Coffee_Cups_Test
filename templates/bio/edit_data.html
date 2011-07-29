@@ -15,55 +15,65 @@
 {% endblock %}
 
 {% block content %}
-	<script type="text/javascript" src="/static/js/jquery-1.5.1.min.js"></script>
-	<script type="text/javascript" src="/static/js/jquery-ui-1.8.14.custom.min.js"></script>
 	<script type="text/javascript">
-         jQuery(function() {
-               jQuery("#id_birth_date").datepicker({ dateFormat: 'yy-mm-dd' });
-            });
-    </script>
-    <script type="text/javascript">
-                var options = {
-                    beforeSubmit:  showRequest,
-                    success:       showResponse,
-                    dataType:  'json' 
-                };
-
-                $('#sendbutton').click(function() {
-                    $('#editform').ajaxSubmit(options);
+             jQuery(function() {
+                   jQuery("#id_birth_date").datepicker({ dateFormat: 'yy-mm-dd' });
                 });
 
-              function showRequest(formData, jqForm, options) {
+             function submitStart(formData, jqForm, options) {
                     $("#errors").hide();
-                     jQuery("#sendbutton").attr('disabled', true)
-                     jQuery("#id_last_name").attr('disabled', true)
-                     jQuery("#id_first_name").attr('disabled', true)
-                     jQuery("#id_contacts").attr('disabled', true)
-                     jQuery("#id_biography").attr('disabled', true)
-                     jQuery("#id_biography").attr('disabled', true)
-                     jQuery("#sendwrapper").prepend('<span>Sending your bio, please wait... </span>')
+                    setEnabledDisabled(true);
+                    jQuery("#sendwrapper").prepend('<span>Sending your bio, please wait... </span>')
                     return true;
                 }
 
-              function showResponse(response, statusText, xhr, $form)  {
-                    if (response.status == 1) {
-                        $("#errors").show();
+             function submitSuccess(responseText, statusText, xhr, form)  {
+                    json_resp_obj = jQuery.parseJSON(responseText);
+                    setEnabledDisabled("")
+                    $("#errors").hide();
+                    $("#sendwrapper").hide();
+                    $("#done").hide();
+                    if (json_resp_obj.status == "done_status") {
+                        $("#done").show();
+                        jQuery("#done").prepend("<p>Data saved done.</p>")
+                    } else{
+                        alert(json_resp_obj.errors);
+
                     }
                 }
+
+             function setEnabledDisabled(status){
+                  jQuery("#sendbutton").attr('disabled',   status)
+                  jQuery("#id_last_name").attr('disabled', status)
+                  jQuery("#id_first_name").attr('disabled',status)
+                  jQuery("#id_contacts").attr('disabled',  status)
+                  jQuery("#id_biography").attr('disabled', status)
+                  jQuery("#id_biography").attr('disabled', status)
+             }
+
+             $(function() {
+             $("#editform").ajaxForm({
+                    beforeSubmit:  submitStart,
+                    success:       submitSuccess});
+             return false;
+             });
+
+
     </script>
 
-    <form  id="editform" action="" method="POST">{% csrf_token %}
-    <div id="ajaxwrapper">
+    <form id="editform" action="" method="post">{% csrf_token %}
         {{ form.as_p }}
-     <p id="sendwrapper"></p>
+    <div id="sendwrapper"></div>
      <p><input id="sendbutton" type=submit value="Submit"></p>
-    </div>
-        <div id="errors">
+    </form>
+
+    <div id="errors">
                 {% for error in form.errors %}
                     <p>{{ error }} not valid.</p>
                 {% endfor %}
-        </div>
-    </form>
+    </div>
+
+    <div id="done"></div>
 
 {% endblock %}
 

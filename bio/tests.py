@@ -86,7 +86,7 @@ class EditDataViewTest(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, self.my_data.first_name)
         resp = self.client.post(reverse(edit_data, args=(1,)), self.my_inform)
-        self.assertNotContains(resp, 'This field is required', status_code=302)
+        self.assertNotContains(resp, 'This field is required', status_code=200)
         self.my_inform['last_name'] = ''
         self.client.login(username='test', password='test')
         resp = self.client.post(reverse(edit_data, args=(1,)), self.my_inform)
