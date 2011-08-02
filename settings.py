@@ -35,11 +35,11 @@ USE_L10N = False
 
 MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'staticfiles')
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
@@ -51,6 +51,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+
 )
 
 SECRET_KEY = 'adrhy&ce&7_l&x9vz9s_hnbop*x3is!d^q$!__-=va(%8^$9_k'
@@ -91,6 +92,7 @@ INSTALLED_APPS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'context_processors.add_conf_proc',
+    'django.core.context_processors.static',
     'django.core.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
 )
