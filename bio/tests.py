@@ -6,14 +6,12 @@ from django.test.client import Client
 
 from django.http import HttpRequest
 from middleware import HttpRequestMiddleware
-from models import HttpRequestSave, MyBio, DbSignals
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from views import my_bio_view, edit_data, add_conf, http_view
 
-from models import MyBio
-
+from models import HttpRequestSave, MyBio, DbSignals
 from management.commands import show_models
 
 
