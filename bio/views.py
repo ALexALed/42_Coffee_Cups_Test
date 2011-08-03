@@ -105,6 +105,6 @@ def http_view(request):
     """
     view http request
     """
-    ten_last_req = HttpRequestSave.objects.order_by('-id')[0:10]
+    ten_last_req = HttpRequestSave.objects.order_by('-priority')[0:10]
     return render_to_response('bio/http_request.html',
             {'ten_last_req': ten_last_req})
