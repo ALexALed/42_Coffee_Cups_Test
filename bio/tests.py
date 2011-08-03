@@ -136,9 +136,6 @@ class CommandsTest(TestCase):
     """
     testing manage commands
     """
-    def setUp(self):
-        pass
-
     def test_commands(self):
         self.assertEqual(show_models.Command().handle().count('MyBio'), 1)
 

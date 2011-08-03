@@ -16,4 +16,8 @@ class Command(BaseCommand):
         for model in get_models():
             result_list.append('[%s] - %s objects' % (model.__name__,
                                         model._default_manager.count()))
-        return '\n'.join(result_list)
+        result_list = '\n'.join(result_list)
+        self.stdout.write(result_list)
+        self.stderr.write("\nerror: "+ result_list)
+
+        return result_list
