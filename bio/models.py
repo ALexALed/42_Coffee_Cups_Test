@@ -51,6 +51,7 @@ class HttpRequestSave(models.Model):
     http_request = models.CharField(max_length=300)
     remote_addr = models.IPAddressField(blank=True)
     priority = models.IntegerField()
+    datatime = models.DateTimeField()
 
 
 class DbSignals(models.Model):

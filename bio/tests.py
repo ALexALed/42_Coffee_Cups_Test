@@ -170,6 +170,6 @@ class TestHttpRequestView(TestCase):
         for i in xrange(1, 31):
             response = self.client.get(reverse(http_view))
             self.assertEqual(response.status_code, 200)
-        ten_last_req = HttpRequestSave.objects.order_by('-id')[0:10]
+        ten_last_req = HttpRequestSave.objects.order_by('-priority')[0:10]
         for req in ten_last_req:
             self.assertContains(response, req.id)
