@@ -53,9 +53,15 @@ def edit_data(request, id=1, rev=False):
                 json_result = simplejson.dumps({'status': "done_status"})
         else:
             if request.is_ajax():
-                error_string = 'Errors in the fields '
+                error_string = ''
+                n = 0
                 for err in form.errors:
-                    error_string = error_string + " " + err + " "
+                    n += 1
+                    if n == len(form.errors):
+                        error_string = error_string + " " + err + " "
+                    else:
+                        error_string = error_string + " " + err + ", "
+
                 json_result = simplejson.dumps({'status': 'fail_status',
                                                 'errors': error_string})
         if request.is_ajax():
