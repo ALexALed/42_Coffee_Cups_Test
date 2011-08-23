@@ -45,7 +45,6 @@ class HttpRequestTest(TestCase):
     def test_middlew(self):
         req = HttpRequestSave.objects.order_by('-id')[0]
         self.assertEquals(req.remote_addr, self.req.META['REMOTE_ADDR'])
-        # priority test
         self.assertEquals(req.priority, 0)
 
 
@@ -86,11 +85,11 @@ class EditDataViewTest(TestCase):
         resp = self.client.get(reverse('edit_bio', args=(1,)))
         self.assertContains(resp, self.my_data.first_name)
         resp = self.client.post(reverse('edit_bio', args=(1,)), self.my_inform)
-        self.assertNotContains(resp, 'This field is required', status_code=200)
+        self.assertNotContains(resp, 'This field is required')
         self.my_inform['last_name'] = ''
         self.client.login(username='test', password='test')
         resp = self.client.post(reverse('edit_bio', args=(1,)), self.my_inform)
-        self.assertContains(resp, 'This field is required', status_code=200)
+        self.assertContains(resp, 'This field is required')
         resp = self.client.get(reverse('edit_bio', args=(1,)))
         for key, value in self.my_inform.items():
             self.assertContains(resp, value)
@@ -106,7 +105,6 @@ class TestMyBioView(TestCase):
 
     def test_resp(self):
         response = self.client.get(reverse('get-bio'))
-        self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.my_info.first_name)
 
 
@@ -169,7 +167,6 @@ class TestHttpRequestView(TestCase):
     def test_resp(self):
         for i in xrange(1, 31):
             response = self.client.get(reverse('req-list'))
-            self.assertEqual(response.status_code, 200)
         ten_last_req = HttpRequestSave.objects.order_by('-priority')[0:10]
         for req in ten_last_req:
             self.assertContains(response, req.id)
