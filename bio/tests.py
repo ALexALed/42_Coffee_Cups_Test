@@ -56,7 +56,7 @@ class ContextProcTest(TestCase):
 
     def test_resp(self):
         resp = self.client.get(reverse('context-proc'))
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp, 'settings')
 
 
 class EditDataViewTest(TestCase):
