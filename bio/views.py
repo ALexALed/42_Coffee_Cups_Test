@@ -84,7 +84,7 @@ def edit_data_http(request, id=1):
         form = HttpEditForm(request.POST, instance=http_edit)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse(http_view))
+            return HttpResponseRedirect(reverse('my-bio/req-list'))#reverse(http_view))
     else:
         form = HttpEditForm(instance=http_edit)
 
