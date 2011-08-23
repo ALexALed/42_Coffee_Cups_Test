@@ -9,7 +9,7 @@ from middleware import HttpRequestMiddleware
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.template import RequestContext
+from django.template import RequestContext, Template, Context
 from django.test.client import RequestFactory
 
 from models import HttpRequestSave, MyBio, DbSignals
@@ -114,18 +114,12 @@ class TemplateTagEditAdminTest(TestCase):
     """
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user('test', 'test@test.com', 'test')
         self.my_data = MyBio.objects.get(id=settings.TESTS_ID)
 
     def test_resp(self):
-        resp = self.client.get(reverse('edit_bio', args=(1,)))
-        self.client.login(username='test', password='test')
-        resp = self.client.get(reverse('edit_bio', args=(1,)))
-        self.admintagurl = reverse('admin:%s_%s_change' %
-                                   (self.my_data._meta.app_label,
-                                    self.my_data._meta.module_name),
-            args=(self.my_data.id,))
-        self.assertContains(resp, self.admintagurl)
+         t = Template('{% load edit_link %} {% edit_link obj %}')
+         c = Context({"obj": self.my_data})
+         self.assertEqual(t.render(c), ' /admin/bio/mybio/1/')
 
 
 class CommandsTest(TestCase):
