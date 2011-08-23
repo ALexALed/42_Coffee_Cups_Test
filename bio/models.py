@@ -1,6 +1,5 @@
 from django.db import models
 from django.db.models.signals import post_init, post_save, post_delete
-import datetime
 
 
 def signals_init(sender, **kwargs):
@@ -20,7 +19,6 @@ def save_signal(sender, signal):
         obj = DbSignals()
         obj.model = sender.__name__
         obj.signal = signal
-        obj.date = datetime.datetime.now()
         obj.save()
 
 post_init.connect(signals_init, dispatch_uid='Coffee_Cups_test.bio')
@@ -51,7 +49,7 @@ class HttpRequestSave(models.Model):
     http_request = models.CharField(max_length=300)
     remote_addr = models.IPAddressField(blank=True)
     priority = models.IntegerField()
-    datatime = models.DateTimeField()
+    datatime = models.DateTimeField(auto_now_add=True)
 
 
 class DbSignals(models.Model):
@@ -60,4 +58,4 @@ class DbSignals(models.Model):
     """
     signal = models.CharField(max_length=50, blank=True)
     model = models.CharField(max_length=100, blank=True)
-    date = models.DateTimeField(blank=True)
+    date = models.DateTimeField(blank=True, auto_now_add=True)
