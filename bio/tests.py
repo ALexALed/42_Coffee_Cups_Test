@@ -9,9 +9,12 @@ from middleware import HttpRequestMiddleware
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.template import RequestContext
+from django.test.client import RequestFactory
 
 from models import HttpRequestSave, MyBio, DbSignals
 from management.commands import show_models
+from context_processors import add_conf_proc
 
 
 class TestMyBioModel(TestCase):
@@ -52,11 +55,13 @@ class ContextProcTest(TestCase):
     """
     def setUp(self):
         self.client = Client()
-        settings.TEST = 'Test_set'
+        self.factory = RequestFactory()
 
     def test_resp(self):
-        resp = self.client.get(reverse('context-proc'))
-        self.assertEqual(resp, 'settings')
+        request = self.factory.get('context-proc')
+        c = RequestContext(request, {}, [add_conf_proc])
+        self.assertTrue('settings' in c)
+        self.assertEquals(c['settings'], settings)
 
 
 class EditDataViewTest(TestCase):
