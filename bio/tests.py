@@ -9,12 +9,10 @@ from middleware import HttpRequestMiddleware
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.template import RequestContext, Template, Context
-from django.test.client import RequestFactory
+from django.template import Template, Context
 
 from models import HttpRequestSave, MyBio, DbSignals
 from management.commands import show_models
-from context_processors import add_conf_proc
 
 
 class TestMyBioModel(TestCase):

@@ -1,8 +1,7 @@
 __author__ = 'alexaled'
 
 from django.shortcuts import render_to_response, RequestContext, \
-    HttpResponseRedirect, HttpResponse
-from django.core.urlresolvers import reverse
+    HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import simplejson
 import time
@@ -90,7 +89,7 @@ def edit_data_http(request, id=1):
         form = HttpEditForm(request.POST, instance=http_edit)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('my-bio/req-list'))#reverse(http_view))
+            return redirect('/my-bio/req-list')
     else:
         form = HttpEditForm(instance=http_edit)
 
