@@ -54,13 +54,10 @@ class ContextProcTest(TestCase):
     """
     def setUp(self):
         self.client = Client()
-        self.factory = RequestFactory()
 
     def test_resp(self):
-        request = self.factory.get('context-proc')
-        c = RequestContext(request, {}, [add_conf_proc])
-        self.assertTrue('settings' in c)
-        self.assertEquals(c['settings'], settings)
+        response = self.client.get('context-proc')
+        self.assertEquals(response.context['settings'], settings)
 
 
 class EditDataViewTest(TestCase):
